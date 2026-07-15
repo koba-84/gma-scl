@@ -1,0 +1,29 @@
+# @package _global_
+
+defaults:
+  - train
+  - _self_
+  - override /data: rcv1_3k
+  - override /logger: wandb
+  - override /trainer: gpu
+
+task_name: "test"
+tags: ["test"]
+num_workers: 0
+
+contrastive:
+  trainer:
+    max_epochs: 1
+    limit_train_batches: 2
+    limit_val_batches: 1
+  data:
+    batch_size: 8
+
+classification:
+  trainer:
+    max_epochs: 1
+    limit_train_batches: 2
+    limit_val_batches: 1
+    limit_test_batches: 1
+  data:
+    batch_size: 8

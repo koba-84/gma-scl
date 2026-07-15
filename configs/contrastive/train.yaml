@@ -1,0 +1,20 @@
+defaults:
+  - _self_
+  - /contrastive/model@model: base
+callbacks: null
+train: True
+test: false
+save_last_encoder: True
+trainer:
+  _target_: lightning.pytorch.trainer.Trainer
+  default_root_dir: ${paths.output_dir}
+  min_epochs: 1
+  max_epochs: 80
+  accelerator: ${trainer.accelerator}
+  devices: ${trainer.devices}
+  strategy: ${trainer.strategy}
+  precision: ${trainer.precision}
+  check_val_every_n_epoch: ${trainer.check_val_every_n_epoch}
+  log_every_n_steps: ${trainer.log_every_n_steps}
+  deterministic: ${trainer.deterministic}
+  enable_checkpointing: False

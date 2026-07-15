@@ -1,0 +1,1 @@
+- [x] 1. contrastive loss の温度引数統一、runtime 引数の config 明示、関連テスト更新、main spec 同期を完了する

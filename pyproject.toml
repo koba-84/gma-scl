@@ -1,0 +1,122 @@
+[project]
+name = "multi-label-supcon"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "hydra-colorlog==1.2.0",
+    "hydra-core==1.3.2",
+    "hydra-optuna-sweeper==1.2.0",
+    "dppy",
+    "lightning>=2.4.0",
+    "rich>=14.3.2",
+    "rootutils>=1.0.7",
+    "scipy>=1.10.0",
+    "sentence-transformers>=3.0.0",
+    "torch>=2.3.0",
+    "torchmetrics>=0.11.4",
+    "torchvision>=0.18.0",
+    "transformers>=4.41.0,<5",
+    "wandb>=0.12.10",
+    "datasets>=4.6.1",
+    "pot>=0.9.6.post1",
+    "opentsne>=1.0.4",
+    "iterative-stratification>=0.1.9",
+]
+
+[dependency-groups]
+dev = [
+    "hypothesis>=6.151.9",
+    "interrogate>=1.7.0",
+    "mypy>=1.19.1",
+    "pre-commit>=4.5.1",
+    "pytest>=9.0.2",
+    "pytest-cov>=7.0.0",
+    "ruff>=0.15.4",
+    "vulture>=2.16",
+]
+
+[[tool.uv.index]]
+name = "pytorch-cu124"
+url = "https://download.pytorch.org/whl/cu124"
+explicit = true
+
+[tool.uv.sources]
+torch = [{ index = "pytorch-cu124" }]
+torchvision = [{ index = "pytorch-cu124" }]
+
+[tool.ruff]
+line-length = 99
+target-version = "py312"
+extend-exclude = ["logs", "data"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "UP"]
+ignore = ["E203", "E402", "E501", "E741", "F401", "F841"]
+
+[tool.ruff.format]
+docstring-code-format = true
+
+[tool.mypy]
+python_version = "3.12"
+files = ["src", "tests", "scripts"]
+follow_imports = "silent"
+check_untyped_defs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+no_implicit_optional = true
+
+[tool.vulture]
+paths = ["src", "tests", "scripts"]
+exclude = ["*/.venv/*", "*/data/*", "*/logs/*", "*/openspec/*", "*/tmp/*"]
+min_confidence = 80
+sort_by_size = true
+
+[[tool.mypy.overrides]]
+module = [
+    "dppy.*",
+    "datasets.*",
+    "ot",
+    "ot.*",
+    "openTSNE",
+    "openTSNE.*",
+    "pkg_resources",
+    "rootutils",
+    "scipy.sparse",
+    "scipy.sparse.csgraph",
+    "sh",
+]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+addopts = [
+  "--color=yes",
+  "--durations=0",
+  "--strict-markers",
+]
+filterwarnings = [
+  "ignore::DeprecationWarning",
+  "ignore::UserWarning",
+]
+log_cli = "True"
+markers = [
+  "slow: slow tests",
+  "gpu: tests that require visible GPUs",
+  "integration: integration tests for end-to-end train/eval flows",
+]
+minversion = "6.0"
+testpaths = "tests/"
+
+[tool.coverage.run]
+source = ["src"]
+data_file = "tmp/.coverage"
+
+[tool.coverage.xml]
+output = "tmp/coverage.xml"
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: nocover",
+    "raise NotImplementedError",
+    "raise NotImplementedError()",
+    "if __name__ == .__main__.:",
+]

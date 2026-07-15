@@ -1,0 +1,24 @@
+defaults:
+  - _self_
+  - /classification/strategy@model: linear_probe
+  - /classification/loss@model: bce
+train: True
+test: True
+trainer:
+  _target_: lightning.pytorch.trainer.Trainer
+  default_root_dir: ${paths.output_dir}
+  min_epochs: 1
+  max_epochs: 40
+  accelerator: ${trainer.accelerator}
+  devices: ${trainer.devices}
+  strategy: ${trainer.strategy}
+  precision: ${trainer.precision}
+  check_val_every_n_epoch: ${trainer.check_val_every_n_epoch}
+  log_every_n_steps: ${trainer.log_every_n_steps}
+  deterministic: ${trainer.deterministic}
+
+callbacks:
+  model_checkpoint: ${callbacks.model_checkpoint}
+  early_stopping: null
+  model_summary: ${callbacks.model_summary}
+  rich_progress_bar: ${callbacks.rich_progress_bar}

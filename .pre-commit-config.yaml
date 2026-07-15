@@ -1,0 +1,138 @@
+default_language_version:
+  python: python3.12
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      # list of supported hooks: https://pre-commit.com/hooks.html
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-docstring-first
+      - id: check-yaml
+      - id: debug-statements
+      - id: detect-private-key
+      - id: check-executables-have-shebangs
+      - id: check-toml
+      - id: check-case-conflict
+      - id: check-added-large-files
+
+  # python lint/format/import sort/upgrade
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.4
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+
+  - repo: local
+    hooks:
+      - id: mypy
+        name: mypy (src+tests+scripts)
+        entry: uv run mypy
+        language: system
+        pass_filenames: false
+        types: [python]
+      - id: commit-message-policy
+        name: commit message policy (commit-msg)
+        entry: uv run python scripts/validate_commit_message.py --mode commit-msg
+        language: system
+        stages: [commit-msg]
+      - id: commit-message-policy-pre-push
+        name: commit message policy (pre-push)
+        entry: uv run python scripts/validate_commit_message.py --mode pre-push
+        language: system
+        pass_filenames: false
+        always_run: true
+        stages: [pre-push]
+      - id: branch-policy-pre-push
+        name: branch policy (pre-push)
+        entry: scripts/validate_branch_policy.sh
+        language: script
+        pass_filenames: false
+        always_run: true
+        stages: [pre-push]
+      - id: interrogate
+        name: interrogate
+        entry: uv run interrogate
+        language: system
+        types_or: [python, pyi]
+        exclude: ^(scripts/|tests/)
+        args:
+          [
+            --verbose,
+            --fail-under=80,
+            --ignore-init-module,
+            --ignore-init-method,
+            --ignore-module,
+            --ignore-nested-functions,
+            --ignore-semiprivate,
+            --ignore-private,
+            --ignore-magic,
+            --ignore-property-decorators,
+            --ignore-setters,
+            --exclude=data,
+            --exclude=tmp,
+            -vv,
+          ]
+
+  # python docstring formatting
+  - repo: https://github.com/PyCQA/docformatter
+    rev: v1.7.7
+    hooks:
+      - id: docformatter
+        args:
+          [
+            --in-place,
+            --wrap-summaries=99,
+            --wrap-descriptions=99,
+            --style=sphinx,
+            --black,
+          ]
+
+  # python security linter
+  - repo: https://github.com/PyCQA/bandit
+    rev: "1.7.5"
+    hooks:
+      - id: bandit
+        args: ["-s", "B101"]
+        additional_dependencies:
+          - pbr
+
+  # yaml formatting
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v3.0.0-alpha.6
+    hooks:
+      - id: prettier
+        types: [yaml]
+        exclude: "environment.yaml"
+
+  # shell scripts linter
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.9.0.2
+    hooks:
+      - id: shellcheck
+
+  # md formatting
+  - repo: https://github.com/executablebooks/mdformat
+    rev: 1.0.0
+    hooks:
+      - id: mdformat
+        stages: [manual]
+        args: ["--number"]
+        additional_dependencies:
+          - mdformat-gfm==1.0.0
+          - mdformat_frontmatter==2.0.10
+          - linkify-it-py
+          # - mdformat-toc
+          # - mdformat-black
+
+  # word spelling linter
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.2.4
+    hooks:
+      - id: codespell
+        args:
+          - --skip=logs/**,data/**,*.ipynb
+          - --ignore-words-list=ot
+          # - --ignore-words-list=abc,def

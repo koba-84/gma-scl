@@ -1,0 +1,14 @@
+defaults:
+  - /contrastive/sampler@_here_: default
+
+_target_: src.data.contrastive_datamodule.ContrastiveDataModule
+data_dir: ${paths.data_dir}
+batch_size: 64
+num_workers: ${num_workers}
+pin_memory: True
+seed: ${seed}
+drop_last: false
+tokenizer_name: roberta-base
+max_length: 512
+hf_cache_dir: ${paths.data_dir}/.hf_cache
+hf_num_proc: 1

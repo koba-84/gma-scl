@@ -1,0 +1,3 @@
+sampler_type: dpp
+dpp:
+  mode: GS_bis

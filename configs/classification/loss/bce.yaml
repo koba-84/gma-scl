@@ -1,0 +1,2 @@
+criterion:
+  _target_: torch.nn.BCEWithLogitsLoss

@@ -1,0 +1,25 @@
+# classification linear probe model (frozen encoder + linear classifier)
+_target_: src.models.finetune_module.FinetuneLitModule
+
+encoder:
+  _target_: src.models.components.encoder.Encoder
+  model_name: roberta-base
+  load_pretrained_weights: false
+
+num_classes: ${classification.data.num_classes}
+encoder_freeze: true
+pretrained_encoder_path: null
+
+optimizer:
+  _target_: torch.optim.AdamW
+  _partial_: true
+  lr: 0.0005
+  weight_decay: 0.01
+
+scheduler:
+  _target_: torch.optim.lr_scheduler.LinearLR
+  _partial_: true
+  start_factor: 1.0
+  end_factor: 0.0
+  total_iters: ${classification.trainer.max_epochs}
+compile: true

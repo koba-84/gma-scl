@@ -1,0 +1,11 @@
+_target_: src.data.classification_datamodule.ClassificationDataModule
+data_dir: ${paths.data_dir}
+dataset_name: aapd_5
+num_classes: 54
+batch_size: 64
+num_workers: ${num_workers}
+pin_memory: True
+tokenizer_name: roberta-base
+max_length: 512
+hf_cache_dir: ${paths.data_dir}/.hf_cache
+hf_num_proc: 1

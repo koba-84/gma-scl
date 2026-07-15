@@ -1,0 +1,7 @@
+# @package _global_
+defaults:
+  - _self_
+  - /contrastive/data@contrastive.data: aapd_5
+  - /classification/data@classification.data: aapd_5
+
+data: aapd_5

@@ -1,0 +1,8 @@
+defaults:
+  - default
+
+loss_fn:
+  _target_: src.models.loss.msc.MSC
+  alpha: 1.0
+  beta: 0.1
+  temperature: 0.1

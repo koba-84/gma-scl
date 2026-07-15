@@ -1,0 +1,7 @@
+defaults:
+  - default
+
+loss_fn:
+  _target_: src.models.loss.base.Base
+  temperature: 0.1
+  eps: 1.0e-8

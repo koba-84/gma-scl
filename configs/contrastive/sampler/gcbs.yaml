@@ -1,0 +1,4 @@
+sampler_type: gcbs
+gcbs:
+  quantile: 0.999
+  chunk_size: 10

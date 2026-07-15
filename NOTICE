@@ -1,0 +1,18 @@
+Anonymous Review Artifact Notice
+
+This repository is an anonymized research artifact for peer review.
+
+Attribution and third-party sources:
+
+- The project structure was originally adapted from the Lightning-Hydra-Template
+  project, which is distributed under the MIT License:
+  https://github.com/ashleve/lightning-hydra-template
+- AAPD label descriptions are generated from public arXiv category taxonomy
+  metadata and label mappings. The generated file records source URLs in
+  data/aapd/label_descriptions.json.
+- Dataset CSV files are not included in this repository. Users must obtain
+  each dataset under its own license or access terms and place the prepared
+  train/dev/test CSV files under the expected data directory.
+
+This notice is not a substitute for the license or access terms of external
+datasets, model checkpoints, or pretrained models used with this code.

@@ -1,0 +1,1 @@
+- [x] 1.1 Add optional MXCLR label embedding whitening with default-off config coverage

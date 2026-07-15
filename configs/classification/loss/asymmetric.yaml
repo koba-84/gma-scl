@@ -1,0 +1,5 @@
+criterion:
+  _target_: src.models.loss.classification.AsymmetricLoss
+  gamma_pos: 0.0
+  gamma_neg: 1.0
+  margin: 0.0

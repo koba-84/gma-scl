@@ -1,0 +1,1 @@
+- [x] 1. reuters21578 の Hydra data config を追加し、設定解決検証と spec 反映まで完了する

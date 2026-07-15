@@ -1,0 +1,13 @@
+defaults:
+  - default
+  - /contrastive/model/agg@loss_fn: BERTScore_F1
+
+loss_fn:
+  _target_: src.models.loss.mxclr.MXCLR
+  data_dir: ${contrastive.data.data_dir}
+  instance_temperature: 0.1
+  graph_temperature: 0.1
+  dataset_name: ${contrastive.data.dataset_name}
+  sbert_model_name: sentence-transformers/all-roberta-large-v1
+  sbert_max_length: 512
+  whitening: false

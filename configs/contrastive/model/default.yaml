@@ -1,0 +1,27 @@
+# contrastive base model (roberta encoder + projection head + optimizer)
+_target_: src.models.contrastive_module.ContrastiveLitModule
+
+encoder:
+  _target_: src.models.components.encoder.Encoder
+  model_name: roberta-base
+
+projection_head:
+  _target_: src.models.components.mlp_head.MLPHead
+  in_dim: 768
+  hidden_dim: 512
+  out_dim: 128
+
+optimizer:
+  _target_: torch.optim.AdamW
+  _partial_: true
+  lr: 2.0e-5
+  weight_decay: 0.01
+
+scheduler:
+  _target_: torch.optim.lr_scheduler.CosineAnnealingLR
+  _partial_: true
+  T_max: ${contrastive.trainer.max_epochs}
+  eta_min: 0e0
+warmup_ratio: 5e-2
+warmup_start_factor: 1e-1
+compile: true

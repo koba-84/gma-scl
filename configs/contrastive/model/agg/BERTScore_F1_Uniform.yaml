@@ -1,0 +1,3 @@
+agg:
+  _target_: src.models.loss.agg.bertscore_f1.BERTScoreUniformF1Graph
+  transport_lambda: 5e-1

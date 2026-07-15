@@ -1,0 +1,3 @@
+- [x] 1.1 Add OpenSpec artifacts for MXCLRRank ListMLE rank temperature.
+- [x] 2.1 Add `rank_temperature` to MXCLRRank implementation/config/tests.
+- [x] 3.1 Sync main training specs, run focused tests and pre-commit, then commit the verified change.

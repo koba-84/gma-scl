@@ -1,0 +1,87 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main, "release/*", "dev"]
+  schedule:
+    - cron: "0 3 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref || github.run_id }}
+  cancel-in-progress: ${{ github.event_name != 'schedule' }}
+
+jobs:
+  fast_tests:
+    if: github.event_name != 'schedule' && github.event_name != 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Python 3.12.3
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12.3"
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          version: "0.7.9"
+          enable-cache: true
+          cache-dependency-glob: |
+            pyproject.toml
+            uv.lock
+            .github/workflows/test.yml
+            scripts/ci_pytest.sh
+
+      - name: Run fast CPU test suite
+        run: bash scripts/ci_pytest.sh fast
+
+      - name: Upload fast test diagnostics
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: fast-tests-${{ github.run_id }}
+          path: tmp/github-actions/fast-tests
+          if-no-files-found: error
+          retention-days: 5
+
+  slow_tests:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Set up Python 3.12.3
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12.3"
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          version: "0.7.9"
+          enable-cache: true
+          cache-dependency-glob: |
+            pyproject.toml
+            uv.lock
+            .github/workflows/test.yml
+            scripts/ci_pytest.sh
+      - name: Run slow CPU test suite
+        run: bash scripts/ci_pytest.sh slow
+      - name: Upload slow test diagnostics
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: slow-tests-${{ github.run_id }}
+          path: tmp/github-actions/slow-tests
+          if-no-files-found: error
+          retention-days: 5

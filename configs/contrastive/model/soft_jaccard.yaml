@@ -1,0 +1,7 @@
+defaults:
+  - default
+
+loss_fn:
+  _target_: src.models.loss.soft_jaccard.SoftJaccard
+  student_temperature: 0.1
+  teacher_temperature: 0.04

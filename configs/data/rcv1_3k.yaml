@@ -1,0 +1,7 @@
+# @package _global_
+defaults:
+  - _self_
+  - /contrastive/data@contrastive.data: rcv1_3k
+  - /classification/data@classification.data: rcv1_3k
+
+data: rcv1_3k

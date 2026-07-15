@@ -1,0 +1,2 @@
+- [x] 1. datamodule base と tokenized cache helper を src/data 直下へ移し、import を更新する
+- [x] 2. spec を同期して検証後に archive する

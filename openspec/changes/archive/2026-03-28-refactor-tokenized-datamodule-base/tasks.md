@@ -1,0 +1,2 @@
+- [x] 1. shared tokenized datamodule base を導入し、build_or_load_tokenized_splits 依存を除去する
+- [x] 2. spec と integration/contract test を同期し、検証後に archive まで完了させる
