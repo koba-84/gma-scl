@@ -1,0 +1,334 @@
+{
+  "dataset": "AAPD",
+  "taxonomy_source_url": "https://arxiv.org/category_taxonomy",
+  "label_source_url": "https://github.com/laddie132/Transformers-MLTC/blob/431a741cdf0ed0cffc6327808c96147eaaac8443/datasets/processors.py",
+  "cmp_lg_alias_source_url": "https://arxiv.org/archive/cmp-lg",
+  "generated_at_utc": "2026-02-24T07:20:33.860306+00:00",
+  "total_labels": 54,
+  "labels": [
+    {
+      "index": 1,
+      "label": "cmp-lg",
+      "taxonomy_title": "Computation and Language",
+      "description": "The cmp-lg archive has been subsumed into\nComputation and Language (cs.CL).\nComputation and Language (cs.CL) is part of the Computer Science archive."
+    },
+    {
+      "index": 2,
+      "label": "cond-mat.dis-nn",
+      "taxonomy_title": "Disordered Systems and Neural Networks",
+      "description": "Glasses and spin glasses; properties of random, aperiodic and quasiperiodic systems; transport in disordered media; localization; phenomena mediated by defects and disorder; neural networks"
+    },
+    {
+      "index": 3,
+      "label": "cond-mat.stat-mech",
+      "taxonomy_title": "Statistical Mechanics",
+      "description": "Phase transitions, thermodynamics, field theory, non-equilibrium phenomena, renormalization group and scaling, integrable models, turbulence"
+    },
+    {
+      "index": 4,
+      "label": "cs.AI",
+      "taxonomy_title": "Artificial Intelligence",
+      "description": "Covers all areas of AI except Vision, Robotics, Machine Learning, Multiagent Systems, and Computation and Language (Natural Language Processing), which have separate subject areas. In particular, includes Expert Systems, Theorem Proving (although this may overlap with Logic in Computer Science), Knowledge Representation, Planning, and Uncertainty in AI. Roughly includes material in ACM Subject Classes I.2.0, I.2.1, I.2.3, I.2.4, I.2.8, and I.2.11."
+    },
+    {
+      "index": 5,
+      "label": "cs.CC",
+      "taxonomy_title": "Computational Complexity",
+      "description": "Covers models of computation, complexity classes, structural complexity, complexity tradeoffs, upper and lower bounds. Roughly includes material in ACM Subject Classes F.1 (computation by abstract devices), F.2.3 (tradeoffs among complexity measures), and F.4.3 (formal languages), although some material in formal languages may be more appropriate for Logic in Computer Science. Some material in F.2.1 and F.2.2, may also be appropriate here, but is more likely to have Data Structures and Algorithms as the primary subject area."
+    },
+    {
+      "index": 6,
+      "label": "cs.CE",
+      "taxonomy_title": "Computational Engineering, Finance, and Science",
+      "description": "Covers applications of computer science to the mathematical modeling of complex systems in the fields of science, engineering, and finance. Papers here are interdisciplinary and applications-oriented, focusing on techniques and tools that enable challenging computational simulations to be performed, for which the use of supercomputers or distributed computing platforms is often required. Includes material in ACM Subject Classes J.2, J.3, and J.4 (economics)."
+    },
+    {
+      "index": 7,
+      "label": "cs.CG",
+      "taxonomy_title": "Computational Geometry",
+      "description": "Roughly includes material in ACM Subject Classes I.3.5 and F.2.2."
+    },
+    {
+      "index": 8,
+      "label": "cs.CL",
+      "taxonomy_title": "Computation and Language",
+      "description": "Covers natural language processing. Roughly includes material in ACM Subject Class I.2.7. Note that work on artificial languages (programming languages, logics, formal systems) that does not explicitly address natural-language issues broadly construed (natural-language processing, computational linguistics, speech, text retrieval, etc.) is not appropriate for this area."
+    },
+    {
+      "index": 9,
+      "label": "cs.CR",
+      "taxonomy_title": "Cryptography and Security",
+      "description": "Covers all areas of cryptography and security including authentication, public key cryptosytems, proof-carrying code, etc. Roughly includes material in ACM Subject Classes D.4.6 and E.3."
+    },
+    {
+      "index": 10,
+      "label": "cs.CV",
+      "taxonomy_title": "Computer Vision and Pattern Recognition",
+      "description": "Covers image processing, computer vision, pattern recognition, and scene understanding. Roughly includes material in ACM Subject Classes I.2.10, I.4, and I.5."
+    },
+    {
+      "index": 11,
+      "label": "cs.CY",
+      "taxonomy_title": "Computers and Society",
+      "description": "Covers impact of computers on society, computer ethics, information technology and public policy, legal aspects of computing, computers and education. Roughly includes material in ACM Subject Classes K.0, K.2, K.3, K.4, K.5, and K.7."
+    },
+    {
+      "index": 12,
+      "label": "cs.DB",
+      "taxonomy_title": "Databases",
+      "description": "Covers database management, datamining, and data processing. Roughly includes material in ACM Subject Classes E.2, E.5, H.0, H.2, and J.1."
+    },
+    {
+      "index": 13,
+      "label": "cs.DC",
+      "taxonomy_title": "Distributed, Parallel, and Cluster Computing",
+      "description": "Covers fault-tolerance, distributed algorithms, stabilility, parallel computation, and cluster computing. Roughly includes material in ACM Subject Classes C.1.2, C.1.4, C.2.4, D.1.3, D.4.5, D.4.7, E.1."
+    },
+    {
+      "index": 14,
+      "label": "cs.DL",
+      "taxonomy_title": "Digital Libraries",
+      "description": "Covers all aspects of the digital library design and document and text creation. Note that there will be some overlap with Information Retrieval (which is a separate subject area). Roughly includes material in ACM Subject Classes H.3.5, H.3.6, H.3.7, I.7."
+    },
+    {
+      "index": 15,
+      "label": "cs.DM",
+      "taxonomy_title": "Discrete Mathematics",
+      "description": "Covers combinatorics, graph theory, applications of probability. Roughly includes material in ACM Subject Classes G.2 and G.3."
+    },
+    {
+      "index": 16,
+      "label": "cs.DS",
+      "taxonomy_title": "Data Structures and Algorithms",
+      "description": "Covers data structures and analysis of algorithms. Roughly includes material in ACM Subject Classes E.1, E.2, F.2.1, and F.2.2."
+    },
+    {
+      "index": 17,
+      "label": "cs.FL",
+      "taxonomy_title": "Formal Languages and Automata Theory",
+      "description": "Covers automata theory, formal language theory, grammars, and combinatorics on words. This roughly corresponds to ACM Subject Classes F.1.1, and F.4.3. Papers dealing with computational complexity should go to cs.CC; papers dealing with logic should go to cs.LO."
+    },
+    {
+      "index": 18,
+      "label": "cs.GT",
+      "taxonomy_title": "Computer Science and Game Theory",
+      "description": "Covers all theoretical and applied aspects at the intersection of computer science and game theory, including work in mechanism design, learning in games (which may overlap with Learning), foundations of agent modeling in games (which may overlap with Multiagent systems), coordination, specification and formal methods for non-cooperative computational environments. The area also deals with applications of game theory to areas such as electronic commerce."
+    },
+    {
+      "index": 19,
+      "label": "cs.HC",
+      "taxonomy_title": "Human-Computer Interaction",
+      "description": "Covers human factors, user interfaces, and collaborative computing. Roughly includes material in ACM Subject Classes H.1.2 and all of H.5, except for H.5.1, which is more likely to have Multimedia as the primary subject area."
+    },
+    {
+      "index": 20,
+      "label": "cs.IR",
+      "taxonomy_title": "Information Retrieval",
+      "description": "Covers indexing, dictionaries, retrieval, content and analysis. Roughly includes material in ACM Subject Classes H.3.0, H.3.1, H.3.2, H.3.3, and H.3.4."
+    },
+    {
+      "index": 21,
+      "label": "cs.IT",
+      "taxonomy_title": "Information Theory",
+      "description": "Covers theoretical and experimental aspects of information theory and coding. Includes material in ACM Subject Class E.4 and intersects with H.1.1."
+    },
+    {
+      "index": 22,
+      "label": "cs.LG",
+      "taxonomy_title": "Machine Learning",
+      "description": "Papers on all aspects of machine learning research (supervised, unsupervised, reinforcement learning, bandit problems, and so on) including also robustness, explanation, fairness, and methodology. cs.LG is also an appropriate primary category for applications of machine learning methods."
+    },
+    {
+      "index": 23,
+      "label": "cs.LO",
+      "taxonomy_title": "Logic in Computer Science",
+      "description": "Covers all aspects of logic in computer science, including finite model theory, logics of programs, modal logic, and program verification. Programming language semantics should have Programming Languages as the primary subject area. Roughly includes material in ACM Subject Classes D.2.4, F.3.1, F.4.0, F.4.1, and F.4.2; some material in F.4.3 (formal languages) may also be appropriate here, although Computational Complexity is typically the more appropriate subject area."
+    },
+    {
+      "index": 24,
+      "label": "cs.MA",
+      "taxonomy_title": "Multiagent Systems",
+      "description": "Covers multiagent systems, distributed artificial intelligence, intelligent agents, coordinated interactions. and practical applications. Roughly covers ACM Subject Class I.2.11."
+    },
+    {
+      "index": 25,
+      "label": "cs.MM",
+      "taxonomy_title": "Multimedia",
+      "description": "Roughly includes material in ACM Subject Class H.5.1."
+    },
+    {
+      "index": 26,
+      "label": "cs.MS",
+      "taxonomy_title": "Mathematical Software",
+      "description": "Roughly includes material in ACM Subject Class G.4."
+    },
+    {
+      "index": 27,
+      "label": "cs.NA",
+      "taxonomy_title": "Numerical Analysis",
+      "description": "cs.NA is an alias for math.NA. Roughly includes material in ACM Subject Class G.1."
+    },
+    {
+      "index": 28,
+      "label": "cs.NE",
+      "taxonomy_title": "Neural and Evolutionary Computing",
+      "description": "Covers neural networks, connectionism, genetic algorithms, artificial life, adaptive behavior. Roughly includes some material in ACM Subject Class C.1.3, I.2.6, I.5."
+    },
+    {
+      "index": 29,
+      "label": "cs.NI",
+      "taxonomy_title": "Networking and Internet Architecture",
+      "description": "Covers all aspects of computer communication networks, including network architecture and design, network protocols, and internetwork standards (like TCP/IP). Also includes topics, such as web caching, that are directly relevant to Internet architecture and performance. Roughly includes all of ACM Subject Class C.2 except C.2.4, which is more likely to have Distributed, Parallel, and Cluster Computing as the primary subject area."
+    },
+    {
+      "index": 30,
+      "label": "cs.PF",
+      "taxonomy_title": "Performance",
+      "description": "Covers performance measurement and evaluation, queueing, and simulation. Roughly includes material in ACM Subject Classes D.4.8 and K.6.2."
+    },
+    {
+      "index": 31,
+      "label": "cs.PL",
+      "taxonomy_title": "Programming Languages",
+      "description": "Covers programming language semantics, language features, programming approaches (such as object-oriented programming, functional programming, logic programming). Also includes material on compilers oriented towards programming languages; other material on compilers may be more appropriate in Architecture (AR). Roughly includes material in ACM Subject Classes D.1 and D.3."
+    },
+    {
+      "index": 32,
+      "label": "cs.RO",
+      "taxonomy_title": "Robotics",
+      "description": "Roughly includes material in ACM Subject Class I.2.9."
+    },
+    {
+      "index": 33,
+      "label": "cs.SC",
+      "taxonomy_title": "Symbolic Computation",
+      "description": "Roughly includes material in ACM Subject Class I.1."
+    },
+    {
+      "index": 34,
+      "label": "cs.SE",
+      "taxonomy_title": "Software Engineering",
+      "description": "Covers design tools, software metrics, testing and debugging, programming environments, etc. Roughly includes material in all of ACM Subject Classes D.2, except that D.2.4 (program verification) should probably have Logics in Computer Science as the primary subject area."
+    },
+    {
+      "index": 35,
+      "label": "cs.SI",
+      "taxonomy_title": "Social and Information Networks",
+      "description": "Covers the design, analysis, and modeling of social and information networks, including their applications for on-line information access, communication, and interaction, and their roles as datasets in the exploration of questions in these and other domains, including connections to the social and biological sciences. Analysis and modeling of such networks includes topics in ACM Subject classes F.2, G.2, G.3, H.2, and I.2; applications in computing include topics in H.3, H.4, and H.5; and applications at the interface of computing and other disciplines include topics in J.1--J.7. Papers on computer communication systems and network protocols (e.g. TCP/IP) are generally a closer fit to the Networking and Internet Architecture (cs.NI) category."
+    },
+    {
+      "index": 36,
+      "label": "cs.SY",
+      "taxonomy_title": "Systems and Control",
+      "description": "cs.SY is an alias for eess.SY. This section includes theoretical and experimental research covering all facets of automatic control systems. The section is focused on methods of control system analysis and design using tools of modeling, simulation and optimization. Specific areas of research include nonlinear, distributed, adaptive, stochastic and robust control in addition to hybrid and discrete event systems. Application areas include automotive and aerospace control systems, network control, biological systems, multiagent and cooperative control, robotics, reinforcement learning, sensor networks, control of cyber-physical and energy-related systems, and control of computing systems."
+    },
+    {
+      "index": 37,
+      "label": "math.CO",
+      "taxonomy_title": "Combinatorics",
+      "description": "Discrete mathematics, graph theory, enumeration, combinatorial optimization, Ramsey theory, combinatorial game theory"
+    },
+    {
+      "index": 38,
+      "label": "math.IT",
+      "taxonomy_title": "Information Theory",
+      "description": "math.IT is an alias for cs.IT. Covers theoretical and experimental aspects of information theory and coding."
+    },
+    {
+      "index": 39,
+      "label": "math.LO",
+      "taxonomy_title": "Logic",
+      "description": "Logic, set theory, point-set topology, formal mathematics"
+    },
+    {
+      "index": 40,
+      "label": "math.NA",
+      "taxonomy_title": "Numerical Analysis",
+      "description": "Numerical algorithms for problems in analysis and algebra, scientific computation"
+    },
+    {
+      "index": 41,
+      "label": "math.NT",
+      "taxonomy_title": "Number Theory",
+      "description": "Prime numbers, diophantine equations, analytic number theory, algebraic number theory, arithmetic geometry, Galois theory"
+    },
+    {
+      "index": 42,
+      "label": "math.OC",
+      "taxonomy_title": "Optimization and Control",
+      "description": "Operations research, linear programming, control theory, systems theory, optimal control, game theory"
+    },
+    {
+      "index": 43,
+      "label": "math.PR",
+      "taxonomy_title": "Probability",
+      "description": "Theory and applications of probability and stochastic processes: e.g. central limit theorems, large deviations, stochastic differential equations, models from statistical mechanics, queuing theory"
+    },
+    {
+      "index": 44,
+      "label": "math.ST",
+      "taxonomy_title": "Statistics Theory",
+      "description": "Applied, computational and theoretical statistics: e.g. statistical inference, regression, time series, multivariate analysis, data analysis, Markov chain Monte Carlo, design of experiments, case studies"
+    },
+    {
+      "index": 45,
+      "label": "nlin.AO",
+      "taxonomy_title": "Adaptation and Self-Organizing Systems",
+      "description": "Adaptation, self-organizing systems, statistical physics, fluctuating systems, stochastic processes, interacting particle systems, machine learning"
+    },
+    {
+      "index": 46,
+      "label": "physics.data-an",
+      "taxonomy_title": "Data Analysis, Statistics and Probability",
+      "description": "Methods, software and hardware for physics data analysis: data processing and storage; measurement methodology; statistical and mathematical aspects such as parametrization and uncertainties."
+    },
+    {
+      "index": 47,
+      "label": "physics.soc-ph",
+      "taxonomy_title": "Physics and Society",
+      "description": "Structure, dynamics and collective behavior of societies and groups (human or otherwise). Quantitative analysis of social networks and other complex networks. Physics and engineering of infrastructure and systems of broad societal impact (e.g., energy grids, transportation networks)."
+    },
+    {
+      "index": 48,
+      "label": "q-bio.NC",
+      "taxonomy_title": "Neurons and Cognition",
+      "description": "Synapse, cortex, neuronal dynamics, neural network, sensorimotor control, behavior, attention"
+    },
+    {
+      "index": 49,
+      "label": "q-bio.QM",
+      "taxonomy_title": "Quantitative Methods",
+      "description": "All experimental, numerical, statistical and mathematical contributions of value to biology"
+    },
+    {
+      "index": 50,
+      "label": "quant-ph",
+      "taxonomy_title": "Quantum Physics",
+      "description": "Description coming soon"
+    },
+    {
+      "index": 51,
+      "label": "stat.AP",
+      "taxonomy_title": "Applications",
+      "description": "Biology, Education, Epidemiology, Engineering, Environmental Sciences, Medical, Physical Sciences, Quality Control, Social Sciences"
+    },
+    {
+      "index": 52,
+      "label": "stat.ME",
+      "taxonomy_title": "Methodology",
+      "description": "Design, Surveys, Model Selection, Multiple Testing, Multivariate Methods, Signal and Image Processing, Time Series, Smoothing, Spatial Statistics, Survival Analysis, Nonparametric and Semiparametric Methods"
+    },
+    {
+      "index": 53,
+      "label": "stat.ML",
+      "taxonomy_title": "Machine Learning",
+      "description": "Covers machine learning papers (supervised, unsupervised, semi-supervised learning, graphical models, reinforcement learning, bandits, high dimensional inference, etc.) with a statistical or theoretical grounding"
+    },
+    {
+      "index": 54,
+      "label": "stat.TH",
+      "taxonomy_title": "Statistics Theory",
+      "description": "stat.TH is an alias for math.ST. Asymptotics, Bayesian Inference, Decision Theory, Estimation, Foundations, Inference, Testing.\nAbout\nHelp\ncontact arXivClick here to contact arXiv Contact\nsubscribe to arXiv mailingsClick here to subscribe Subscribe\nCopyright\nPrivacy Policy\nWeb Accessibility Assistance\narXiv Operational Status"
+    }
+  ]
+}
