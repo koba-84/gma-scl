@@ -67,7 +67,7 @@ no_implicit_optional = true
 
 [tool.vulture]
 paths = ["src", "tests", "scripts"]
-exclude = ["*/.venv/*", "*/data/*", "*/logs/*", "*/openspec/*", "*/tmp/*"]
+exclude = ["*/.venv/*", "*/data/*", "*/logs/*", "*/tmp/*"]
 min_confidence = 80
 sort_by_size = true
 

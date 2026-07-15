@@ -1,1 +1,0 @@
-- [x] 1. classification val/test に multilabel mAP を追加し、OpenSpec とテストを更新して検証する

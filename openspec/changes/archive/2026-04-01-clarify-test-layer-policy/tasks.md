@@ -1,9 +1,0 @@
-- [x] 1. OpenSpec change artifacts を作成し、test layer policy と sampler output hygiene 方針を定義する
-  - 検証: `uv run openspec validate clarify-test-layer-policy --type change`
-- [x] 2. DPP 専用 stdout test を sampler output hygiene test へ一般化する
-  - 検証: `uv run pytest tests/test_sampler_output_hygiene.py -q`
-- [x] 3. main specs へ policy を同期し、targeted pytest と quality gate を通す
-  - 検証: `uv run pytest tests/test_sampler_output_hygiene.py tests/test_data_integration.py -q`
-  - 検証: `uv run pre-commit run -a`
-  - 検証: `uv run openspec validate training --type spec`
-  - 検証: `uv run openspec validate dev-quality-tooling --type spec`

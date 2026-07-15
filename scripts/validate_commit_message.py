@@ -79,7 +79,7 @@ def _validate_one(target: ValidationTarget) -> list[str]:
     if _is_ml_impact(target.changed_files) and not _has_section(body, "Reproducibility"):
         errors.append(
             "ML影響ファイルを含むため 'Reproducibility:' が必要です "
-            "(例: 設定キー・設定ファイル・データ契約・OpenSpec change)。"
+            "(例: 設定キー・設定ファイル・データ契約)。"
         )
 
     return errors
@@ -110,7 +110,7 @@ def _validate_commit_message_file(path: str) -> int:
         "Feat: Short imperative summary\n\n"
         "Why: reason\n"
         "Validation: command/result\n"
-        "Reproducibility: config/data/OpenSpec context (if ML-impacting)",
+        "Reproducibility: config/data context (if ML-impacting)",
         file=sys.stderr,
     )
     return 1

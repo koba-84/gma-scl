@@ -13,7 +13,6 @@ The repository prioritizes reproducibility: the same Git commit, Hydra configura
 - Two-stage workflow: contrastive stage followed by classification stage
 - Dataset configurations for AAPD, RCV1, Reuters-21578, and UK-LEX
 - W&B logging for resolved configs, primary metrics, and test score artifacts
-- Spec-driven change management with OpenSpec
 
 ## Repository Layout
 
@@ -35,9 +34,6 @@ tests/
   losses/                     # Regression tests for loss implementations
   property/                   # Hypothesis property-based tests
   integration/                # Data and training integration tests
-openspec/
-  specs/                      # Active specifications
-  changes/                    # Specification change work units
 scripts/
   test.sh                     # GPU-based execution check
 ```
@@ -191,23 +187,6 @@ Standard pre-commit gate:
 
 ```bash
 uv run pre-commit run -a
-```
-
-## OpenSpec Workflow
-
-Behavior-changing updates, configuration changes, data processing changes, evaluation changes, model changes, and sampler changes must be recorded as an OpenSpec change before implementation.
-
-Key files to read before making changes:
-
-- `openspec/project.md`
-- `openspec/specs/version-control.md`
-- `openspec/specs/commit-message-policy/spec.md`
-- Relevant `openspec/specs/*/spec.md` files
-
-Run the OpenSpec CLI through uv.
-
-```bash
-uv run openspec status
 ```
 
 ## Notes

@@ -1,2 +1,0 @@
-- [x] 1. finetune module と classification loss config を criterion instantiate ベースへ置き換える
-- [x] 2. config テストと main spec を更新し、対象検証を通して commit する

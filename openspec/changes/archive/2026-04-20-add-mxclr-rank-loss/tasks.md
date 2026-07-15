@@ -1,1 +1,0 @@
-- [x] 1.1 `MXCLRRank` と row-wise ListMLE helper を追加し、`mxclr_rank` config・main spec・pytest 検証まで完了する

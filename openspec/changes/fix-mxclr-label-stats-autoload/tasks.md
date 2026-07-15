@@ -1,1 +1,0 @@
-- [x] 1.1 MXCLR の agg-required label statistics 自動ロード仕様を artifacts と main spec に反映し、実装と検証を完了する

@@ -1,3 +1,0 @@
-- [x] 1.1 Add OpenSpec artifacts for separating MXCLRRank ListMLE from MXCLRKendall.
-- [x] 2.1 Restore MXCLRRank ListMLE implementation/config/tests while preserving MXCLRKendall.
-- [x] 3.1 Sync main training specs, run focused tests and pre-commit, then commit the verified fix.

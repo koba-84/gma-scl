@@ -1,2 +1,0 @@
-- [x] 1. tokenized cache helper を別 module に切り出し、hf_tokenized_dataset.py を wrapper 専用にする
-- [x] 2. spec を同期して検証後に archive する

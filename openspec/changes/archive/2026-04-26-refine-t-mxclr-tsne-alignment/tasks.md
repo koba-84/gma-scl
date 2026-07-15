@@ -1,5 +1,0 @@
-- [x] 1.1 Add OpenSpec artifacts for mxclr_rank restoration and removed agg/regularizer behavior.
-- [x] 2.1 Restore `mxclr_rank` config/module/tests while keeping `mxclr_kendall` selectable.
-- [x] 2.2 Remove agg regularizer paths and delete `self_norm`, `distill_chamfer`, and `distill_idf_chamfer` implementations/configs/tests.
-- [x] 3.1 Sync main training specs and run focused tests plus project quality gates.
-- [x] 4.1 Commit completed OpenSpec task changes with compliant messages, push branch, open PR, pass CI, merge, and delete the branch.

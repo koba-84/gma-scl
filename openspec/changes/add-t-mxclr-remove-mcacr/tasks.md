@@ -1,4 +1,0 @@
-- [x] 1. OpenSpec artifacts and main specs update
-- [x] 2. Remove MCACR and MCACRWONEG implementations, configs, exports, aliases, and tests
-- [x] 3. Add openTSNE-backed t-MXCLR implementation, config, exports, aliases, and tests
-- [x] 4. Run required local validation before PR handoff
