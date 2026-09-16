@@ -52,19 +52,19 @@ sources before redistribution.
 Inspect the resolved default configuration without starting training:
 
 ```bash
-uv run python src/train.py --cfg job --resolve logger=csv
+uv run src/train.py --cfg job --resolve logger=csv
 ```
 
 Run the default two-stage experiment with local CSV logging:
 
 ```bash
-uv run python src/train.py logger=csv
+uv run src/train.py logger=csv
 ```
 
 Run GMA-SCL explicitly:
 
 ```bash
-uv run python src/train.py contrastive/model=gma_scl logger=csv
+uv run src/train.py contrastive/model=gma_scl logger=csv
 ```
 
 The default workflow trains the contrastive stage first and then evaluates the
@@ -76,9 +76,9 @@ best validation macro-F1.
 Select a dataset with a Hydra override:
 
 ```bash
-uv run python src/train.py data=rcv1 logger=csv
-uv run python src/train.py data=reuters21578 logger=csv
-uv run python src/train.py data=uklex logger=csv
+uv run src/train.py data=rcv1 logger=csv
+uv run src/train.py data=reuters21578 logger=csv
+uv run src/train.py data=uklex logger=csv
 ```
 
 Available contrastive model presets include:
@@ -90,15 +90,15 @@ base, ml_supcon, mxclr, gma_scl, msc, soft_jaccard
 For example:
 
 ```bash
-uv run python src/train.py contrastive/model=ml_supcon logger=csv
-uv run python src/train.py contrastive/model=mxclr logger=csv
+uv run src/train.py contrastive/model=ml_supcon logger=csv
+uv run src/train.py contrastive/model=mxclr logger=csv
 ```
 
 The mixed multi-dataset profile uses one shared encoder and dataset-specific
 classification heads:
 
 ```bash
-uv run python src/train.py \
+uv run src/train.py \
   data=multi_dataset \
   contrastive/model=multi_dataset \
   classification/strategy@classification.model=multi_dataset \
@@ -108,7 +108,7 @@ uv run python src/train.py \
 Override individual settings directly, for example:
 
 ```bash
-uv run python src/train.py \
+uv run src/train.py \
   contrastive/model=gma_scl \
   contrastive.model.loss_fn.lambda_rank=0.5 \
   contrastive.trainer.max_epochs=1 \
@@ -150,7 +150,6 @@ configs/       Hydra configurations for data, models, trainers, and loggers
 src/           Training entrypoint, data modules, models, and losses
 scripts/       Analysis and repository utility scripts
 tests/         Unit, property, and integration tests
-REPORT.md      Research notes and experiment protocol
 LICENSE        MIT License for the repository code
 ```
 
