@@ -6,7 +6,7 @@ from torchmetrics.classification import MultilabelF1Score
 
 TRAIN_CSV_PATH = Path("data/uklex/train.csv")
 PREDICTION_DIR = Path("tmp/pred/uklex")
-MODEL_NAMES = ["bce", "base", "mulsupcon", "mxclr_rank"]
+MODEL_NAMES = ["bce", "base", "mulsupcon", "gma_scl"]
 NUM_BANDS = 2
 
 

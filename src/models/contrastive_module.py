@@ -9,6 +9,7 @@ from torch.optim.lr_scheduler import LRScheduler
 from torchmetrics import MeanMetric
 
 from src.data.components.gcbs import compute_gcbs_permutation
+from src.models.components.encoder_lifecycle import EncoderLifecycleMixin
 from src.models.loss.msc import MSC
 
 BatchInput = dict[str, torch.Tensor]
@@ -30,7 +31,7 @@ def _contrastive_metric_axis_definitions() -> tuple[MetricAxisDefinition, ...]:
     )
 
 
-class ContrastiveLitModule(LightningModule):
+class ContrastiveLitModule(EncoderLifecycleMixin, LightningModule):
     """LightningModule for supervised contrastive pretraining."""
 
     def __init__(
@@ -227,16 +228,11 @@ class ContrastiveLitModule(LightningModule):
         """Initialize stage-specific runtime state."""
         if stage == "fit":
             self._init_learnable_prototype()
-        trainer = self.trainer
-        root_device = None if trainer is None else getattr(trainer.strategy, "root_device", None)
-        compile_enabled = (
-            stage == "fit"
-            and bool(getattr(self.hparams, "compile", False))
-            and getattr(root_device, "type", "cpu") != "cpu"
-        )
-        if compile_enabled:
-            self.encoder = cast(torch.nn.Module, torch.compile(self.encoder))
-            self.projection_head = cast(torch.nn.Module, torch.compile(self.projection_head))
+        super().setup(stage)
+
+    def _compile_additional_modules(self) -> None:
+        """Compile the projection head after the shared encoder."""
+        self.projection_head = cast(torch.nn.Module, torch.compile(self.projection_head))
 
     def configure_optimizers(self) -> Any:
         """Configure optimizer and optional scheduler."""

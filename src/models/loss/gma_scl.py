@@ -8,7 +8,7 @@ from src.models.loss.components.listmle import compute_listmle_loss
 from src.models.loss.mxclr import MXCLR, _compute_mxclr_loss
 
 
-def _compute_mxclr_rank_loss(
+def _compute_gma_scl_loss(
     z: torch.Tensor,
     g_soft: torch.Tensor,
     *,
@@ -36,8 +36,8 @@ def _compute_mxclr_rank_loss(
     return mxclr_loss + (lambda_rank * rank_loss)
 
 
-class MXCLRRank(MXCLR):
-    """MXCLR with an auxiliary teacher-order ListMLE term."""
+class GMASCL(MXCLR):
+    """GMA-SCL with an auxiliary teacher-order ListMLE term."""
 
     def __init__(
         self,
@@ -86,7 +86,7 @@ class MXCLRRank(MXCLR):
             g_soft = target
         else:
             g_soft = self.score_graph(target)
-        return _compute_mxclr_rank_loss(
+        return _compute_gma_scl_loss(
             z=normalized_z,
             g_soft=g_soft,
             instance_temperature=self.instance_temperature,

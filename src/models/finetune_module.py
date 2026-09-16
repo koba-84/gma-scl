@@ -10,6 +10,8 @@ from torchmetrics.classification import MultilabelAveragePrecision
 from torchmetrics.classification.f_beta import F1Score
 from torchmetrics.classification.hamming import HammingDistance
 
+from src.models.components.encoder_lifecycle import EncoderLifecycleMixin
+
 OptimizerFactory = Callable[..., torch.optim.Optimizer]
 SchedulerFactory = Callable[..., LRScheduler]
 ModelInput = torch.Tensor | dict[str, torch.Tensor]
@@ -37,7 +39,7 @@ def _ranking_metric_collection(num_classes: int, prefix: str) -> MetricCollectio
     )
 
 
-class FinetuneLitModule(LightningModule):
+class FinetuneLitModule(EncoderLifecycleMixin, LightningModule):
     """LightningModule for classification finetuning with optional encoder freezing."""
 
     def __init__(
@@ -93,21 +95,12 @@ class FinetuneLitModule(LightningModule):
     def on_fit_start(self) -> None:
         """Validate setup and apply encoder initialization policy."""
         self._configure_stage_metric_axes()
-        encoder_pretrained = getattr(self.encoder, "load_pretrained_weights", None)
-        if (
-            self.encoder_freeze
-            and not self.pretrained_encoder_path
-            and encoder_pretrained is False
-        ):
-            raise RuntimeError(
-                "Invalid finetune config: encoder_freeze=True with randomly initialized encoder. "
-                "Set classification.model.pretrained_encoder_path or enable "
-                "classification.model.encoder.load_pretrained_weights=true, "
-                "or set classification.model.encoder_freeze=false."
-            )
-        if self.pretrained_encoder_path:
-            self._load_pretrained_encoder(self.pretrained_encoder_path)
-        self._set_encoder_trainable(not self.encoder_freeze)
+        self._initialize_encoder(
+            "Invalid finetune config: encoder_freeze=True with randomly initialized encoder. "
+            "Set classification.model.pretrained_encoder_path or enable "
+            "classification.model.encoder.load_pretrained_weights=true, "
+            "or set classification.model.encoder_freeze=false."
+        )
 
     def _configure_stage_metric_axes(self) -> None:
         if self.trainer is None:
@@ -230,25 +223,6 @@ class FinetuneLitModule(LightningModule):
             if candidate.exists():
                 candidate.unlink()
 
-    def _load_pretrained_encoder(self, ckpt_path: str) -> None:
-        ckpt = torch.load(ckpt_path, map_location="cpu", weights_only=False)
-        state_dict = ckpt.get("state_dict", ckpt)
-        encoder_state = {
-            k.removeprefix("encoder."): v
-            for k, v in state_dict.items()
-            if k.startswith("encoder.")
-        }
-        missing, unexpected = self.encoder.load_state_dict(encoder_state, strict=False)
-        if missing or unexpected:
-            raise RuntimeError(
-                f"Pretrained encoder state mismatch. Missing: {len(missing)}, "
-                f"Unexpected: {len(unexpected)}"
-            )
-
-    def _set_encoder_trainable(self, trainable: bool) -> None:
-        for param in self.encoder.parameters():
-            param.requires_grad = trainable
-
     def model_step(
         self, batch: BatchType
     ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
@@ -352,18 +326,9 @@ class FinetuneLitModule(LightningModule):
         self.test_threshold_metrics.reset()
         self.test_ranking_metrics.reset()
 
-    def setup(self, stage: str) -> None:
-        """Set up compile path for fit stage."""
-        trainer = self.trainer
-        root_device = None if trainer is None else getattr(trainer.strategy, "root_device", None)
-        compile_enabled = (
-            stage == "fit"
-            and bool(getattr(self.hparams, "compile", False))
-            and getattr(root_device, "type", "cpu") != "cpu"
-        )
-        if compile_enabled:
-            self.encoder = cast(torch.nn.Module, torch.compile(self.encoder))
-            self.classifier = cast(torch.nn.Linear, torch.compile(self.classifier))
+    def _compile_additional_modules(self) -> None:
+        """Compile the single classifier after the shared encoder."""
+        self.classifier = cast(torch.nn.Linear, torch.compile(self.classifier))
 
     def configure_optimizers(self) -> Any:
         """Configure optimizer and optional scheduler."""

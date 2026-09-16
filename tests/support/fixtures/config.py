@@ -69,7 +69,6 @@ def cfg_train(cfg_train_global: DictConfig, tmp_path: Path) -> Generator[DictCon
 
     with open_dict(cfg):
         cfg.paths.output_dir = str(tmp_path)
-        cfg.paths.log_dir = str(tmp_path)
         cfg.paths.data_dir = str(synthetic_data_root)
         cfg.contrastive.data.data_dir = str(synthetic_data_root)
         cfg.contrastive.data.dataset_name = synthetic_dataset_name

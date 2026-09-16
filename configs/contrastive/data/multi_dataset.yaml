@@ -1,0 +1,16 @@
+_target_: src.data.multi_dataset_datamodule.MultiDatasetDataModule
+data_dir: ${paths.root_dir}/data/
+dataset_names: [aapd, reuters21578, uklex]
+dataset_num_classes:
+  aapd: 54
+  reuters21578: 90
+  uklex: 69
+batch_size: 64
+num_workers: ${num_workers}
+pin_memory: true
+seed: ${seed}
+drop_last: false
+tokenizer_name: roberta-base
+max_length: 512
+hf_cache_dir: ${paths.root_dir}/tmp/hf_cache
+hf_num_proc: 1

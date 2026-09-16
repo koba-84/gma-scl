@@ -42,6 +42,8 @@ def test_classification_datamodule_integration(
     test_batch = next(iter(dm.test_dataloader()))
     assert train_batch[0]["input_ids"].shape[0] == 2
     assert train_batch[1].shape == (2, 2)
+    assert train_batch[0]["empty_text_mask"].dtype == torch.bool
+    assert train_batch[1].dtype == torch.float32
     assert val_batch[1].shape == (2, 2)
     assert test_batch[1].shape == (2, 2)
 
@@ -156,18 +158,6 @@ def test_contrastive_refresh_batches_use_tokenized_tensors(
     refresh_batch = dm.iter_refresh_batches()[0]
     assert refresh_batch["input_ids"].dtype == torch.long
     assert refresh_batch["attention_mask"].dtype == torch.long
-
-
-def test_classification_batch_has_empty_text_mask_and_zero_override(
-    classification_dm_factory: Any,
-) -> None:
-    dm = classification_dm_factory(batch_size=2)
-    dm.prepare_data()
-    dm.setup()
-
-    features, labels = next(iter(dm.train_dataloader()))
-    assert features["empty_text_mask"].dtype == torch.bool
-    assert labels.dtype == torch.float32
 
 
 def test_finetune_model_step_returns_scores_for_map() -> None:

@@ -7,8 +7,6 @@ from hypothesis import settings
 pytest_plugins = [
     "tests.support.fixtures.config",
     "tests.support.fixtures.datasets",
-    "tests.support.fixtures.logging",
-    "tests.support.fixtures.mxclr",
 ]
 
 

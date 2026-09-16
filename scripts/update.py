@@ -31,8 +31,8 @@ def set_nested_key(d: dict, dotted_key: str, value: Any) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Update config of an existing W&B run.")
-    parser.add_argument("--entity", default="", help="W&B entity/user/team name")
-    parser.add_argument("--project", default="multi-label-supcon", help="W&B project name")
+    parser.add_argument("--entity", default="koba84-", help="W&B entity/user/team name")
+    parser.add_argument("--project", default="gma-scl", help="W&B project name")
     parser.add_argument("--run-id", required=True, help="W&B run ID")
     parser.add_argument(
         "--set",

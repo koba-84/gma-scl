@@ -17,6 +17,6 @@ export TRANSFORMERS_OFFLINE=1
     classification=train \
     data=aapd \
     trainer=gpu \
-    trainer.max_epochs=1 \
+    contrastive.trainer.max_epochs=1 \
     classification.trainer.max_epochs=1
 } 2>&1 | tee "${LOG_FILE}"

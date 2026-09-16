@@ -1,19 +1,52 @@
+import argparse
 from pathlib import Path
 
 import pandas as pd  # type: ignore[import-untyped]
 import torch
 from torchmetrics.classification import MultilabelF1Score
 
-TRAIN_CSV_PATH = Path("data/reuters21578/train.csv")
-PREDICTION_DIR = Path("tmp/pred/reuters21578")
+TRAIN_CSV_PATH = Path("data/aapd/train.csv")
+PREDICTION_DIR = Path("tmp/pred/aapd")
 MODEL_NAMES = ["bce", "base", "mulsupcon", "gma_scl"]
-NUM_BANDS = 3
 
 
 def load_label_frequency() -> pd.Series:
     df = pd.read_csv(TRAIN_CSV_PATH)
     label_df = df.drop(columns=["abstract"])
     return (label_df == 1).sum()
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Report overall and rank-based frequency-band macro-F1 from saved AAPD predictions."
+    )
+    parser.add_argument(
+        "--rank-boundaries",
+        type=int,
+        nargs="*",
+        default=None,
+        help="Exactly three sorted rank boundaries. Bands become 1-b1, (b1+1)-b2, (b2+1)-b3, (b3+1)-N.",
+    )
+    return parser.parse_args()
+
+
+def default_rank_boundaries(num_labels: int) -> list[int]:
+    default_boundaries = [6, 22, 38]
+    return validate_rank_boundaries(default_boundaries, num_labels)
+
+
+def validate_rank_boundaries(rank_boundaries: list[int], num_labels: int) -> list[int]:
+    if len(rank_boundaries) != 3:
+        raise ValueError("rank boundaries must contain exactly three values to form four bands")
+    if any(boundary <= 0 for boundary in rank_boundaries):
+        raise ValueError("rank boundaries must be positive integers")
+    if any(boundary >= num_labels for boundary in rank_boundaries):
+        raise ValueError("rank boundaries must be smaller than the number of labels")
+    if rank_boundaries != sorted(rank_boundaries):
+        raise ValueError("rank boundaries must be sorted in ascending order")
+    if len(set(rank_boundaries)) != len(rank_boundaries):
+        raise ValueError("rank boundaries must not contain duplicates")
+    return rank_boundaries
 
 
 def build_rank_order(label_freq: pd.Series) -> pd.Series:
@@ -26,25 +59,28 @@ def build_rank_order(label_freq: pd.Series) -> pd.Series:
     return rank_order.reindex(label_freq.index)
 
 
-def band_label(index: int) -> str:
-    return f"third_{index + 1}"
+def band_label(lower_rank: int | None, upper_rank: int | None) -> str:
+    if lower_rank is None and upper_rank is None:
+        return "all"
+    if lower_rank is None:
+        return f"rank_1_{upper_rank}"
+    if upper_rank is None:
+        return f"rank_{lower_rank + 1}_plus"
+    return f"rank_{lower_rank + 1}_{upper_rank}"
 
 
-def build_frequency_bands(
+def build_rank_bands(
     label_freq: pd.Series,
     rank_order: pd.Series,
+    rank_boundaries: list[int],
 ) -> tuple[pd.Series, list[str], dict[str, str]]:
-    ordered_labels = rank_order.sort_values(kind="stable").index.to_list()
-    base_size, remainder = divmod(len(ordered_labels), NUM_BANDS)
-    labels = [band_label(index) for index in range(NUM_BANDS)]
-    band_map = pd.Series(index=label_freq.index, dtype="object")
-
-    start = 0
-    for index, label in enumerate(labels):
-        size = base_size + (1 if index < remainder else 0)
-        band_labels = ordered_labels[start : start + size]
-        band_map.loc[band_labels] = label
-        start += size
+    bins = [0, *rank_boundaries, len(label_freq)]
+    labels = [
+        band_label(None if index == 0 else rank_boundaries[index - 1], upper_rank)
+        for index, upper_rank in enumerate([*rank_boundaries, None])
+    ]
+    band_ids = pd.cut(rank_order, bins=bins, labels=labels, include_lowest=True, right=True)
+    band_map = pd.Series(band_ids, index=label_freq.index, dtype="object")
 
     band_ranges = {}
     for label in labels:
@@ -133,9 +169,15 @@ def evaluate_model_predictions(
 
 
 def main() -> None:
+    args = parse_args()
     label_freq = load_label_frequency()
     rank_order = build_rank_order(label_freq)
-    band_map, band_labels, band_ranges = build_frequency_bands(label_freq, rank_order)
+    rank_boundaries = (
+        default_rank_boundaries(len(label_freq))
+        if args.rank_boundaries is None or len(args.rank_boundaries) == 0
+        else validate_rank_boundaries(args.rank_boundaries, len(label_freq))
+    )
+    band_map, band_labels, band_ranges = build_rank_bands(label_freq, rank_order, rank_boundaries)
 
     per_seed_rows = []
     average_rows = {}
@@ -149,7 +191,8 @@ def main() -> None:
     per_seed_summary = per_seed_summary[["overall_macro_f1", *band_labels]]
     average_summary = pd.DataFrame.from_dict(average_rows, orient="index")
     average_summary = average_summary[["seed_count", "overall_macro_f1", *band_labels]]
-    print("Reuters-21578 1/3 frequency bands")
+    print(f"Rank boundaries: {rank_boundaries}")
+    print("Rank-based frequency bands")
     for band in band_labels:
         print(f"- {band}: {band_ranges[band]}")
     print()

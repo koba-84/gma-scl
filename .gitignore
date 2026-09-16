@@ -147,10 +147,7 @@ dmypy.json
 
 # Lightning-Hydra-Template
 configs/local/default.yaml
-/data/*
-!/data/aapd/
-/data/aapd/*
-!/data/aapd/label_descriptions.json
+/data/
 /logs/
 .env
 

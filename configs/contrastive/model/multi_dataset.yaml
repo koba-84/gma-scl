@@ -1,0 +1,36 @@
+_target_: src.models.multi_dataset_contrastive_module.MultiDatasetContrastiveLitModule
+
+encoder:
+  _target_: src.models.components.encoder.Encoder
+  model_name: roberta-base
+
+projection_head:
+  _target_: src.models.components.mlp_head.MLPHead
+  in_dim: 768
+  hidden_dim: 512
+  out_dim: 128
+
+optimizer:
+  _target_: torch.optim.AdamW
+  _partial_: true
+  lr: 2.0e-5
+  weight_decay: 0.01
+
+scheduler:
+  _target_: torch.optim.lr_scheduler.CosineAnnealingLR
+  _partial_: true
+  T_max: ${contrastive.trainer.max_epochs}
+  eta_min: 0.0
+
+loss_fn:
+  _target_: src.models.loss.multi_dataset_mxclr.MultiDatasetMXCLR
+  data_dir: ${contrastive.data.data_dir}
+  dataset_names: ${contrastive.data.dataset_names}
+  instance_temperature: 0.07
+  graph_temperature: 0.1
+  sbert_model_name: sentence-transformers/all-roberta-large-v1
+  sbert_max_length: 512
+  whitening: false
+  label_weighting: l2norm
+
+compile: true

@@ -16,6 +16,10 @@ _CONTRASTIVE_AGG_NAME_BY_TARGET = {
     "src.models.loss.agg.bertscore_f1.BERTScoreRecallGraph": "BERTScore_Recall",
 }
 
+_CONTRASTIVE_LOSS_NAME_BY_TARGET = {
+    "src.models.loss.multi_dataset_mxclr.MultiDatasetMXCLR": "multi_dataset",
+}
+
 _MXCLR_PROTO_TARGET = "src.models.loss.mxclr_proto.MXCLRProto"
 
 
@@ -49,6 +53,9 @@ def merge_nested_config(base: dict[str, Any], extra: dict[str, Any]) -> dict[str
 
 
 def _derive_contrastive_loss_name(target: str) -> str | None:
+    alias = _CONTRASTIVE_LOSS_NAME_BY_TARGET.get(target)
+    if alias is not None:
+        return alias
     parts = target.split(".")
     if len(parts) < 2:
         return None

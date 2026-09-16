@@ -13,8 +13,8 @@ import wandb
 import yaml  # type: ignore[import-untyped]
 from src.utils.wandb_config_aliases import derive_wandb_config_aliases, merge_nested_config
 
-DEFAULT_ENTITY = ""
-DEFAULT_PROJECT = "multi-label-supcon"
+DEFAULT_ENTITY = "koba84-"
+DEFAULT_PROJECT = "gma-scl"
 FLATTEN_ROOTS = ("contrastive", "classification", "data", "trainer", "callbacks", "extras")
 DEFAULT_DOWNLOAD_ROOT = Path("tmp") / "wandb_backfill"
 

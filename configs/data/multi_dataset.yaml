@@ -1,0 +1,5 @@
+# @package _global_
+
+defaults:
+  - /contrastive/data@contrastive.data: multi_dataset
+  - /classification/data@classification.data: multi_dataset

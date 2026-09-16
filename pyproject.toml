@@ -1,5 +1,5 @@
 [project]
-name = "multi-label-supcon"
+name = "gma-scl"
 version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = [
@@ -67,7 +67,7 @@ no_implicit_optional = true
 
 [tool.vulture]
 paths = ["src", "tests", "scripts"]
-exclude = ["*/.venv/*", "*/data/*", "*/logs/*", "*/tmp/*"]
+exclude = ["*/.venv/*", "*/data/*", "*/logs/*", "*/openspec/*", "*/tmp/*"]
 min_confidence = 80
 sort_by_size = true
 

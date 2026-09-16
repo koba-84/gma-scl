@@ -3,7 +3,7 @@ defaults:
   - /contrastive/model/agg@loss_fn: BERTScore_F1
 
 loss_fn:
-  _target_: src.models.loss.mxclr_rank.MXCLRRank
+  _target_: src.models.loss.gma_scl.GMASCL
   data_dir: ${contrastive.data.data_dir}
   instance_temperature: 0.1
   graph_temperature: 0.1

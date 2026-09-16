@@ -87,6 +87,7 @@ class SoftJaccard(nn.Module):
         self.teacher_temperature = teacher_temperature
 
     def forward(self, z: torch.Tensor, labels: torch.Tensor) -> torch.Tensor:
+        """Compute the soft-Jaccard teacher cross-entropy objective."""
         batch_size = z.size(0)
 
         if batch_size < 2:

@@ -63,6 +63,16 @@ def _ignore_wandb_ckpt_artifacts() -> None:
     log.info(f"Set {key}={os.environ[key]}")
 
 
+def _stage_callbacks_config(
+    stage_cfg: DictConfig, base_cfg: DictConfig, model: LightningModule
+) -> Any:
+    """Resolve callbacks, disabling global checkpoint selection for dataset-specific states."""
+    callbacks_cfg = stage_cfg.get("callbacks", base_cfg.get("callbacks"))
+    if getattr(model, "uses_dataset_specific_best_state", False):
+        return None
+    return callbacks_cfg
+
+
 def _run_stage(
     stage_name: str, stage_cfg: DictConfig, base_cfg: DictConfig
 ) -> tuple[dict[str, Any], dict[str, Any], Trainer]:
@@ -74,7 +84,7 @@ def _run_stage(
     model: LightningModule = hydra.utils.instantiate(stage_cfg.model)
 
     log.info(f"[{stage_name}] Instantiating callbacks...")
-    callbacks_cfg = stage_cfg.get("callbacks", base_cfg.get("callbacks"))
+    callbacks_cfg = _stage_callbacks_config(stage_cfg, base_cfg, model)
     callbacks: list[Callback] = instantiate_callbacks(callbacks_cfg)
 
     log.info(f"[{stage_name}] Instantiating loggers...")

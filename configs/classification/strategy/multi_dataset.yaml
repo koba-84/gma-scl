@@ -1,0 +1,38 @@
+_target_: src.models.multi_dataset_finetune_module.MultiDatasetFinetuneLitModule
+
+encoder:
+  _target_: src.models.components.encoder.Encoder
+  model_name: roberta-base
+  load_pretrained_weights: false
+
+dataset_names: ${classification.data.dataset_names}
+num_classes_by_dataset: ${classification.data.dataset_num_classes}
+label_offsets:
+  aapd: 0
+  reuters21578: 54
+  uklex: 144
+encoder_freeze: true
+pretrained_encoder_path: null
+
+classifier_lr_by_dataset:
+  aapd: 5.0e-4
+  reuters21578: 5.0e-4
+  uklex: 5.0e-4
+
+optimizer:
+  _target_: torch.optim.AdamW
+  _partial_: true
+  lr: 5.0e-4
+  weight_decay: 0.01
+
+scheduler:
+  _target_: torch.optim.lr_scheduler.LinearLR
+  _partial_: true
+  start_factor: 1.0
+  end_factor: 0.0
+  total_iters: ${classification.trainer.max_epochs}
+
+criterion:
+  _target_: torch.nn.BCEWithLogitsLoss
+
+compile: true
